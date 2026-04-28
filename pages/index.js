@@ -219,7 +219,7 @@ function Avatar({ user, size = "md", onClick, anonymous = false }) {
   const inner = user?.avatarUrl ? (
     <img src={user.avatarUrl} alt="" className={`${cls} rounded-full object-cover shadow-md shrink-0`} />
   ) : (
-    <div className={`${cls} rounded-full bg-gradient-to-br from-blue-500 via-fuchsia-500 to-orange-500 flex items-center justify-center shadow-md shrink-0`}>
+    <div className={`${cls} rounded-full bg-slate-100 dark:bg-slate-900 flex items-center justify-center shrink-0`}>
       {user?.avatar || "🐻"}
     </div>
   );
@@ -329,14 +329,14 @@ function AuthScreen() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-orange-50">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-white">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-300 rounded-full filter blur-3xl opacity-30 animate-pulse" />
-        <div className="absolute top-1/2 -right-40 w-96 h-96 bg-orange-300 rounded-full filter blur-3xl opacity-30 animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-fuchsia-300 rounded-full filter blur-3xl opacity-30 animate-pulse" style={{ animationDelay: "2s" }} />
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-300 rounded-full filter blur-3xl opacity-0 animate-pulse" />
+        <div className="absolute top-1/2 -right-40 w-96 h-96 bg-orange-300 rounded-full filter blur-3xl opacity-0 animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-fuchsia-300 rounded-full filter blur-3xl opacity-0 animate-pulse" style={{ animationDelay: "2s" }} />
       </div>
       <div className="relative w-full max-w-md">
-        <div className="backdrop-blur-2xl bg-white/80 border border-white shadow-2xl shadow-blue-500/10 rounded-3xl p-8">
+        <div className="bg-white dark:bg-black border border-slate-200 dark:border-slate-800 rounded-3xl p-8">
           <div className="text-center mb-6">
             <img src={PLAYVO_LOGO} alt="Playvo" className="w-28 h-28 mx-auto drop-shadow-xl" />
             <p className="text-xs text-slate-500 mt-1 tracking-[0.3em] uppercase font-semibold">Play Every Moment</p>
@@ -348,12 +348,12 @@ function AuthScreen() {
               <Input icon={Mail} value={email} onChange={setEmail} placeholder="อีเมล" type="email" />
               <Input icon={Lock} value={password} onChange={setPassword} placeholder="รหัสผ่าน" type={showPass ? "text" : "password"} rightIcon={showPass ? EyeOff : Eye} onRightClick={() => setShowPass(!showPass)} />
               {err && <p className="text-rose-500 text-sm">{err}</p>}
-              <button type="button" onClick={() => { setMode("forgot"); setErr(""); setInfo(""); }} className="text-xs text-slate-500 hover:text-slate-700">ลืมรหัสผ่าน?</button>
+              <button type="button" onClick={() => { setMode("forgot"); setErr(""); setInfo(""); }} className="text-xs text-slate-500 hover:text-black dark:hover:text-white underline">ลืมรหัสผ่าน?</button>
               <PrimaryBtn busy={busy}>เข้าสู่ระบบ</PrimaryBtn>
               <OrDivider />
               <GoogleBtn onClick={handleGoogle} busy={busy} />
               <p className="text-center text-sm text-slate-600 pt-2">
-                ยังไม่มีบัญชี? <button type="button" onClick={() => { setMode("signup"); setErr(""); }} className="text-blue-600 font-semibold">สมัครสมาชิก</button>
+                ยังไม่มีบัญชี? <button type="button" onClick={() => { setMode("signup"); setErr(""); }} className="text-black dark:text-white font-bold underline">สมัครสมาชิก</button>
               </p>
             </form>
           )}
@@ -369,7 +369,7 @@ function AuthScreen() {
               <OrDivider />
               <GoogleBtn onClick={handleGoogle} busy={busy} />
               <p className="text-center text-sm text-slate-600 pt-2">
-                มีบัญชีแล้ว? <button type="button" onClick={() => { setMode("login"); setErr(""); }} className="text-blue-600 font-semibold">เข้าสู่ระบบ</button>
+                มีบัญชีแล้ว? <button type="button" onClick={() => { setMode("login"); setErr(""); }} className="text-black dark:text-white font-bold underline">เข้าสู่ระบบ</button>
               </p>
             </form>
           )}
@@ -407,7 +407,7 @@ function Input({ icon: Icon, value, onChange, placeholder, type = "text", rightI
 function PrimaryBtn({ children, busy, onClick }) {
   return (
     <button type="submit" onClick={onClick} disabled={busy}
-      className="w-full bg-gradient-to-r from-blue-500 via-fuchsia-500 to-orange-500 text-white font-bold py-3 rounded-2xl shadow-lg shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98] transition disabled:opacity-50 flex items-center justify-center gap-2">
+      className="w-full bg-black dark:bg-white text-white dark:text-black font-bold py-3 rounded-full hover:scale-[1.02] active:scale-[0.98] transition disabled:opacity-50 flex items-center justify-center gap-2">
       {busy && <Loader2 className="w-5 h-5 animate-spin" />}
       {children}
     </button>
@@ -448,7 +448,7 @@ function MainApp() {
   const goGame = (gameId, matchId = null) => { setActiveGame(gameId); setGameMatchId(matchId); setPage("playgame"); };
 
   const dark = theme === "dark";
-  const bgClass = dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50";
+  const bgClass = dark ? "bg-black" : "bg-white";
 
   return (
     <div className={`h-screen w-full max-w-md mx-auto ${bgClass} relative overflow-hidden flex flex-col ${dark ? "dark" : ""}`}>
@@ -467,7 +467,7 @@ function MainApp() {
       </div>
 
       {!["chat", "groupchat", "settings", "playgame"].includes(page) && (
-        <div className={`${dark ? "bg-slate-800 border-slate-700" : "bg-white border-slate-200"} border-t shadow-lg`}>
+        <div className={`${dark ? "bg-black border-slate-800" : "bg-white border-slate-200"} border-t`}>
           <div className="flex items-center justify-around py-2">
             <NavBtn icon={Home} label="หน้าแรก" active={page === "feed"} onClick={() => setPage("feed")} />
             <NavBtn icon={Users} label="เพื่อน" active={page === "friends"} onClick={() => setPage("friends")} />
@@ -487,8 +487,8 @@ function NavBtn({ icon: Icon, label, active, onClick }) {
   const inactiveColor = dark ? "text-slate-500" : "text-slate-400";
   return (
     <button onClick={onClick} className="flex flex-col items-center gap-0.5 px-2 py-1">
-      <Icon className={`w-6 h-6 ${active ? "text-blue-500" : inactiveColor}`} fill={active ? "currentColor" : "none"} />
-      <span className={`text-[10px] ${active ? "text-blue-500 font-semibold" : inactiveColor}`}>{label}</span>
+      <Icon className={`w-6 h-6 ${active ? "text-black dark:text-white" : inactiveColor}`} fill={active ? "currentColor" : "none"} />
+      <span className={`text-[10px] ${active ? "text-black dark:text-white font-semibold" : inactiveColor}`}>{label}</span>
     </button>
   );
 }
@@ -501,8 +501,8 @@ function RoomsPage({ onBack, onSelectRoom, activeRoom }) {
   const textSecondary = dark ? "text-slate-400" : "text-slate-500";
 
   return (
-    <div className={`h-full overflow-y-auto ${dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50"} ${textPrimary}`}>
-      <div className={`sticky top-0 z-10 backdrop-blur-xl p-4 flex items-center gap-3 border-b ${dark ? "bg-slate-800/80 border-slate-700" : "bg-white/80 border-slate-200"}`}>
+    <div className={`h-full overflow-y-auto ${dark ? "bg-black" : "bg-white"} ${textPrimary}`}>
+      <div className={`sticky top-0 z-10 p-4 flex items-center gap-3 ${dark ? "bg-black border-slate-800" : "bg-white border-slate-200"} border-b`}>
         <button onClick={onBack}><ArrowLeft className="w-6 h-6" /></button>
         <h2 className="font-bold text-lg">ห้องทั้งหมด</h2>
       </div>
@@ -513,7 +513,7 @@ function RoomsPage({ onBack, onSelectRoom, activeRoom }) {
             const Icon = r.icon;
             const isActive = activeRoom === r.id;
             return (
-              <button key={r.id} onClick={() => onSelectRoom(r.id)} className={`relative overflow-hidden rounded-2xl p-4 bg-gradient-to-br ${r.gradient} hover:scale-[1.02] transition text-left text-white shadow-md ${isActive ? "ring-4 ring-blue-400" : ""}`}>
+              <button key={r.id} onClick={() => onSelectRoom(r.id)} className={`relative overflow-hidden rounded-2xl p-4 bg-gradient-to-br ${r.gradient} hover:scale-[1.02] transition text-left text-white dark:text-black ${isActive ? "ring-4 ring-blue-400" : ""}`}>
                 <Icon className="w-8 h-8 mb-2" />
                 <p className="font-bold text-base">{r.name}</p>
                 <p className="text-xs text-white/80 mt-0.5">{r.desc}</p>
@@ -534,7 +534,7 @@ function DailyQuestionCard({ onAnswer }) {
   const question = useMemo(() => getDailyQuestion(), []);
 
   return (
-    <div className={`mx-3 mt-3 rounded-2xl overflow-hidden shadow-md bg-gradient-to-br from-violet-500 via-fuchsia-500 to-pink-500 text-white`}>
+    <div className={`mx-3 mt-3 rounded-2xl overflow-hidden shadow-md bg-black dark:bg-white text-white`}>
       <div className="p-4">
         <div className="flex items-center gap-2 mb-2">
           <Sparkles className="w-5 h-5" />
@@ -605,17 +605,17 @@ function FeedPage({ onProfile, onChat, onNotifications, onMessages, onFriends, o
   };
 
   return (
-    <div className={`h-full overflow-y-auto ${dark ? "bg-slate-900 text-slate-100" : "bg-gradient-to-b from-blue-50 via-white to-orange-50 text-slate-800"}`}>
-      <div className={`sticky top-0 z-10 backdrop-blur-xl border-b ${dark ? "bg-slate-800/80 border-slate-700" : "bg-white/80 border-slate-200"}`}>
+    <div className={`h-full overflow-y-auto ${dark ? "bg-black text-slate-100" : "bg-white text-slate-800"}`}>
+      <div className={`sticky top-0 z-10 ${dark ? "bg-black border-slate-800" : "bg-white border-slate-200"} border-b`}>
         <div className="flex items-center justify-between p-3">
           <div className="flex items-center gap-2">
             <img src={PLAYVO_LOGO} alt="Playvo" className="w-9 h-9" />
-            <h1 className="text-2xl font-black bg-gradient-to-r from-blue-600 via-fuchsia-500 to-orange-500 bg-clip-text text-transparent">Playvo</h1>
+            <h1 className="text-2xl font-black text-black dark:text-white">Playvo</h1>
           </div>
           <div className="flex gap-2">
-            <button onClick={onFriends} className={`w-10 h-10 rounded-full ${dark ? "bg-slate-700" : "bg-slate-100"} flex items-center justify-center`}><Users className="w-5 h-5" /></button>
-            <button onClick={onMessages} className={`w-10 h-10 rounded-full ${dark ? "bg-slate-700" : "bg-slate-100"} flex items-center justify-center`}><MessageSquare className="w-5 h-5" /></button>
-            <button onClick={onNotifications} className={`relative w-10 h-10 rounded-full ${dark ? "bg-slate-700" : "bg-slate-100"} flex items-center justify-center`}>
+            <button onClick={onFriends} className={`w-10 h-10 rounded-full ${dark ? "hover:bg-slate-900" : "hover:bg-slate-100"} flex items-center justify-center`}><Users className="w-5 h-5" /></button>
+            <button onClick={onMessages} className={`w-10 h-10 rounded-full ${dark ? "hover:bg-slate-900" : "hover:bg-slate-100"} flex items-center justify-center`}><MessageSquare className="w-5 h-5" /></button>
+            <button onClick={onNotifications} className={`relative w-10 h-10 rounded-full ${dark ? "hover:bg-slate-900" : "hover:bg-slate-100"} flex items-center justify-center`}>
               <Bell className="w-5 h-5" />
               {unreadNotif > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white dark:border-slate-700">
@@ -631,7 +631,7 @@ function FeedPage({ onProfile, onChat, onNotifications, onMessages, onFriends, o
             const Icon = r.icon;
             const active = activeRoom === r.id;
             return (
-              <button key={r.id} onClick={() => setActiveRoom(r.id)} className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border ${active ? "bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white border-transparent" : dark ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-white border-slate-200 text-slate-700"}`}>
+              <button key={r.id} onClick={() => setActiveRoom(r.id)} className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border ${active ? "bg-black dark:bg-white text-white border-transparent" : dark ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-white border-slate-200 text-slate-700"}`}>
                 <Icon className="w-3.5 h-3.5" /> {r.name}
               </button>
             );
@@ -644,7 +644,7 @@ function FeedPage({ onProfile, onChat, onNotifications, onMessages, onFriends, o
 
       {/* Birthday banner */}
       {birthdayFriends.length > 0 && activeRoom === "general" && (
-        <div className="mx-3 mt-3 rounded-2xl overflow-hidden bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 text-white shadow-md">
+        <div className="mx-3 mt-3 rounded-2xl overflow-hidden bg-black dark:bg-white text-white dark:text-black dark:text-black">
           <div className="p-4">
             <div className="flex items-center gap-2 mb-2">
               <PartyPopper className="w-5 h-5" />
@@ -673,13 +673,13 @@ function FeedPage({ onProfile, onChat, onNotifications, onMessages, onFriends, o
         <span className={`text-sm flex-1 text-left ${dark ? "text-slate-400" : "text-slate-500"}`}>
           {activeRoom === "anonymous" ? "โพสต์แบบนิรนาม..." : `โพสต์ในห้อง ${currentRoom.name}...`}
         </span>
-        <BarChart3 className="w-5 h-5 text-blue-500" />
+        <BarChart3 className="w-5 h-5" />
       </button>
 
       {/* Posts */}
       <div className="space-y-3 mt-3 pb-4">
         {loading ? (
-          <div className="flex justify-center py-12"><Loader2 className="w-8 h-8 animate-spin text-blue-500" /></div>
+          <div className="flex justify-center py-12"><Loader2 className="w-8 h-8 animate-spin text-black dark:text-white" /></div>
         ) : posts.length === 0 ? (
           <div className={`text-center py-16 ${dark ? "text-slate-500" : "text-slate-400"}`}>
             <p>ยังไม่มีโพสต์ในห้อง {currentRoom.name}</p>
@@ -805,7 +805,7 @@ function PostCard({ post, onProfile }) {
   const RoomIcon = room?.icon || Home;
 
   return (
-    <div className={`${cardBg} border mx-3 rounded-2xl overflow-hidden shadow-sm`}>
+    <div className={`${dark ? "bg-black" : "bg-white"} border-b ${dark ? "border-slate-800" : "border-slate-200"}`}>
       <div className="flex items-center gap-3 p-3">
         {isAnon ? (
           <Avatar anonymous={true} size="md" />
@@ -860,8 +860,8 @@ function PostCard({ post, onProfile }) {
             const pct = totalVotes > 0 ? Math.round((count / totalVotes) * 100) : 0;
             const isMine = myVote === idx;
             return (
-              <button key={idx} onClick={() => votePoll(idx)} className={`relative w-full rounded-xl border-2 overflow-hidden text-left transition ${isMine ? "border-blue-500" : dark ? "border-slate-700" : "border-slate-200"}`}>
-                <div className={`absolute inset-y-0 left-0 ${isMine ? "bg-blue-500/15" : dark ? "bg-slate-700/50" : "bg-slate-100"} transition-all`} style={{ width: `${pct}%` }} />
+              <button key={idx} onClick={() => votePoll(idx)} className={`relative w-full rounded-xl border-2 overflow-hidden text-left transition ${isMine ? "border-black dark:border-white" : dark ? "border-slate-700" : "border-slate-200"}`}>
+                <div className={`absolute inset-y-0 left-0 ${isMine ? "bg-slate-200 dark:bg-slate-800" : dark ? "bg-slate-700/50" : "bg-slate-100"} transition-all`} style={{ width: `${pct}%` }} />
                 <div className="relative px-3 py-2 flex items-center justify-between">
                   <span className={`text-sm font-medium ${textPrimary}`}>{isMine && "✓ "}{opt}</span>
                   <span className={`text-xs ${textSecondary}`}>{count} ({pct}%)</span>
@@ -875,7 +875,7 @@ function PostCard({ post, onProfile }) {
 
       {(totalReactions > 0 || (post.commentsCount || 0) > 0) && (
         <div className={`flex items-center justify-between px-3 py-2 text-xs ${textSecondary}`}>
-          {totalReactions > 0 && <div className="flex items-center gap-1"><div className="flex -space-x-1">{topEmojis.map((r) => <div key={r.type} className={`w-5 h-5 rounded-full border flex items-center justify-center text-[10px] ${dark ? "bg-slate-700 border-slate-800" : "bg-white border-slate-200"}`}>{r.emoji}</div>)}</div><span className="ml-1">{totalReactions}</span></div>}
+          {totalReactions > 0 && <div className="flex items-center gap-1"><div className="flex -space-x-1">{topEmojis.map((r) => <div key={r.type} className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${dark ? "bg-slate-800" : "bg-slate-100"}`}>{r.emoji}</div>)}</div><span className="ml-1">{totalReactions}</span></div>}
           {(post.commentsCount || 0) > 0 && <span>{post.commentsCount} ความคิดเห็น</span>}
         </div>
       )}
@@ -887,7 +887,7 @@ function PostCard({ post, onProfile }) {
             <span className="text-sm font-semibold">{myReactionData ? myReactionData.label : "ถูกใจ"}</span>
           </button>
           {showReactions && (
-            <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 ${cardBg} rounded-full px-2 py-1.5 flex gap-1 shadow-2xl border animate-slideup z-30`}>
+            <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 ${dark ? "bg-black border-slate-700" : "bg-white border-slate-200"} rounded-full px-2 py-1.5 flex gap-1 border animate-slideup z-30`}>
               {REACTIONS.map((r) => <button key={r.type} onClick={() => react(r.type)} className="text-2xl hover:scale-125 transition transform">{r.emoji}</button>)}
             </div>
           )}
@@ -898,11 +898,11 @@ function PostCard({ post, onProfile }) {
       </div>
 
       {showComments && (
-        <div className={`border-t p-3 space-y-3 ${dark ? "border-slate-700 bg-slate-900" : "border-slate-100 bg-slate-50"}`}>
+        <div className={`border-t p-3 space-y-3 ${dark ? "border-slate-700 bg-black" : "border-slate-100 bg-slate-50"}`}>
           {comments.map((c) => <CommentItem key={c.id} comment={c} postId={post.id} dark={dark} />)}
           <div className="flex gap-2 items-center">
             <Avatar user={profile} size="sm" />
-            <div className={`flex-1 flex items-center rounded-full px-3 py-1.5 ${dark ? "bg-slate-800 border border-slate-700" : "bg-white border border-slate-200"}`}>
+            <div className={`flex-1 flex items-center rounded-full px-3 py-1.5 ${dark ? "bg-slate-900" : "bg-slate-100"}`}>
               <input value={commentText} onChange={(e) => setCommentText(e.target.value)} onKeyDown={(e) => e.key === "Enter" && submitComment()} placeholder="แสดงความคิดเห็น..." className={`flex-1 bg-transparent text-sm focus:outline-none ${textPrimary}`} />
               <button onClick={submitComment} disabled={!commentText.trim()} className="text-blue-500 disabled:text-slate-300"><Send className="w-4 h-4" /></button>
             </div>
@@ -962,7 +962,7 @@ function CommentItem({ comment, postId, dark }) {
         <div className="flex items-center gap-3 ml-3 mt-1.5 text-[10px]">
           <span className={dark ? "text-slate-500" : "text-slate-400"}>{fmtTime(comment.createdAt)}</span>
           <div className="relative" onMouseEnter={() => setShowReactPicker(true)} onMouseLeave={() => setShowReactPicker(false)}>
-            <button onClick={() => react(myReaction || "like")} onTouchStart={(e) => { e.preventDefault(); setShowReactPicker(true); }} className={`font-semibold ${myReaction ? "text-blue-500" : dark ? "text-slate-400" : "text-slate-500"}`}>
+            <button onClick={() => react(myReaction || "like")} onTouchStart={(e) => { e.preventDefault(); setShowReactPicker(true); }} className={`font-semibold ${myReaction ? "text-black dark:text-white" : dark ? "text-slate-500" : "text-slate-500"}`}>
               {myReaction ? REACTIONS.find((r) => r.type === myReaction)?.label : "ถูกใจ"}
             </button>
             {showReactPicker && (
@@ -1034,11 +1034,11 @@ function PostComposer({ onClose, activeRoom = "general", initial = {} }) {
   const RoomIcon = currentRoom.icon;
 
   return (
-    <div className={`fixed inset-0 z-50 flex flex-col ${dark ? "bg-slate-900 text-slate-100" : "bg-white text-slate-800"}`}>
+    <div className={`fixed inset-0 z-50 flex flex-col ${dark ? "bg-black text-slate-100" : "bg-white text-slate-800"}`}>
       <div className={`flex items-center justify-between p-4 border-b ${dark ? "border-slate-700" : "border-slate-200"}`}>
         <button onClick={onClose}><X className="w-6 h-6" /></button>
         <h2 className="font-bold text-lg">สร้างโพสต์</h2>
-        <button onClick={submit} disabled={busy || (!text.trim() && !imageUrl && !pollMode)} className="px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white font-semibold disabled:opacity-30">
+        <button onClick={submit} disabled={busy || (!text.trim() && !imageUrl && !pollMode)} className="px-4 py-1.5 rounded-full bg-black dark:bg-white text-white dark:text-black font-semibold disabled:opacity-30">
           {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : "โพสต์"}
         </button>
       </div>
@@ -1080,19 +1080,19 @@ function PostComposer({ onClose, activeRoom = "general", initial = {} }) {
         {pollMode && (
           <div className={`rounded-2xl border p-3 mb-3 ${dark ? "bg-slate-800 border-slate-700" : "bg-blue-50 border-blue-200"}`}>
             <div className="flex items-center justify-between mb-2">
-              <p className="text-sm font-semibold flex items-center gap-1.5"><BarChart3 className="w-4 h-4 text-blue-500" /> โพล</p>
+              <p className="text-sm font-semibold flex items-center gap-1.5"><BarChart3 className="w-4 h-4" /> โพล</p>
               <button onClick={() => { setPollMode(false); setPollOptions(["", ""]); }} className="text-xs text-red-500">ยกเลิกโพล</button>
             </div>
             {pollOptions.map((opt, idx) => (
               <div key={idx} className="flex gap-2 mb-2">
-                <input value={opt} onChange={(e) => { const n = [...pollOptions]; n[idx] = e.target.value; setPollOptions(n); }} placeholder={`ตัวเลือก ${idx + 1}`} className={`flex-1 rounded-xl px-3 py-2 text-sm border focus:outline-none focus:border-blue-400 ${dark ? "bg-slate-900 border-slate-700 text-slate-100" : "bg-white border-slate-200"}`} />
+                <input value={opt} onChange={(e) => { const n = [...pollOptions]; n[idx] = e.target.value; setPollOptions(n); }} placeholder={`ตัวเลือก ${idx + 1}`} className={`flex-1 rounded-xl px-3 py-2 text-sm border focus:outline-none focus:border-blue-400 ${dark ? "bg-black border-slate-700 text-slate-100" : "bg-white border-slate-200"}`} />
                 {pollOptions.length > 2 && (
                   <button onClick={() => setPollOptions(pollOptions.filter((_, i) => i !== idx))} className="text-red-500 px-2"><X className="w-4 h-4" /></button>
                 )}
               </div>
             ))}
             {pollOptions.length < 6 && (
-              <button onClick={() => setPollOptions([...pollOptions, ""])} className="text-xs text-blue-500 font-semibold flex items-center gap-1">
+              <button onClick={() => setPollOptions([...pollOptions, ""])} className="text-xs text-black dark:text-white font-semibold underline">
                 <Plus className="w-3 h-3" /> เพิ่มตัวเลือก
               </button>
             )}
@@ -1123,7 +1123,7 @@ function PostComposer({ onClose, activeRoom = "general", initial = {} }) {
 
       {/* Action toolbar */}
       <div className={`border-t p-3 flex gap-2 flex-wrap ${dark ? "border-slate-700" : "border-slate-200"}`}>
-        <button onClick={() => setPollMode(!pollMode)} className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium ${pollMode ? "bg-blue-500 text-white" : dark ? "bg-slate-800 text-blue-400" : "bg-blue-50 text-blue-500"}`}>
+        <button onClick={() => setPollMode(!pollMode)} className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium ${pollMode ? "bg-black text-white dark:bg-white dark:text-black" : dark ? "bg-slate-800 text-slate-300" : "bg-slate-100 text-slate-700"}`}>
           <BarChart3 className="w-4 h-4" /> {pollMode ? "ปิดโพล" : "เพิ่มโพล"}
         </button>
       </div>
@@ -1156,8 +1156,8 @@ function FriendsPage({ onBack, onProfile, onChat }) {
   const textPrimary = dark ? "text-slate-100" : "text-slate-800";
 
   return (
-    <div className={`h-full overflow-y-auto ${dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50"} ${textPrimary}`}>
-      <div className={`sticky top-0 z-10 backdrop-blur-xl p-4 flex items-center gap-3 border-b ${dark ? "bg-slate-800/80 border-slate-700" : "bg-white/80 border-slate-200"}`}>
+    <div className={`h-full overflow-y-auto ${dark ? "bg-black" : "bg-white"} ${textPrimary}`}>
+      <div className={`sticky top-0 z-10 p-4 flex items-center gap-3 ${dark ? "bg-black border-slate-800" : "bg-white border-slate-200"} border-b`}>
         <button onClick={onBack}><ArrowLeft className="w-6 h-6" /></button>
         <h2 className="font-bold text-lg">เพื่อน</h2>
       </div>
@@ -1172,7 +1172,7 @@ function FriendsPage({ onBack, onProfile, onChat }) {
             { k: "requests", l: `คำขอ (${requests.length})` },
             { k: "friends", l: `เพื่อน (${friends.length})` },
           ].map(({ k, l }) => (
-            <button key={k} onClick={() => setTab(k)} className={`flex-1 py-2 rounded-xl text-sm font-semibold ${tab === k ? "bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white" : dark ? "bg-slate-800 border border-slate-700" : "bg-white border border-slate-200"}`}>{l}</button>
+            <button key={k} onClick={() => setTab(k)} className={`flex-1 py-2 rounded-xl text-sm font-semibold ${tab === k ? "bg-black dark:bg-white text-white" : dark ? "bg-slate-800 border border-slate-700" : "bg-white border border-slate-200"}`}>{l}</button>
           ))}
         </div>
         <div className="space-y-2">
@@ -1206,7 +1206,7 @@ function UserRow({ user, myProfile, onProfile, onChat, dark }) {
   const decline = async () => { await updateDoc(doc(db, "users", myProfile.id), { friendRequests: arrayRemove(user.id) }); toast("ปฏิเสธคำขอ"); };
 
   return (
-    <div className={`flex items-center gap-3 p-3 rounded-2xl border shadow-sm ${dark ? "bg-slate-800 border-slate-700" : "bg-white border-slate-100"}`}>
+    <div className={`flex items-center gap-3 p-3 rounded-2xl ${dark ? "hover:bg-slate-900" : "hover:bg-slate-50"}`}>
       <button onClick={() => onProfile(user.id)} className="flex items-center gap-3 flex-1">
         <Avatar user={user} size="lg" />
         <div className="text-left">
@@ -1215,16 +1215,16 @@ function UserRow({ user, myProfile, onProfile, onChat, dark }) {
         </div>
       </button>
       {isFriend ? (
-        <button onClick={() => onChat(user.id)} className="w-10 h-10 rounded-full bg-blue-500/10 text-blue-500 flex items-center justify-center"><MessageSquare className="w-5 h-5" /></button>
+        <button onClick={() => onChat(user.id)} className={`w-10 h-10 rounded-full ${dark ? "bg-slate-900 text-white" : "bg-slate-100 text-black"} flex items-center justify-center`}><MessageSquare className="w-5 h-5" /></button>
       ) : incomingRequest ? (
         <div className="flex gap-1">
-          <button onClick={accept} className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white text-xs font-semibold">รับ</button>
+          <button onClick={accept} className="px-3 py-1.5 rounded-full bg-black dark:bg-white text-white dark:text-black text-xs font-semibold">รับ</button>
           <button onClick={decline} className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${dark ? "bg-slate-700" : "bg-slate-100"}`}>ปฏิเสธ</button>
         </div>
       ) : isPending ? (
         <span className={`text-xs px-3 ${textSecondary}`}>รอตอบรับ</span>
       ) : (
-        <button onClick={sendReq} className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white text-xs font-semibold"><UserPlus className="w-3 h-3" />เพิ่ม</button>
+        <button onClick={sendReq} className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-black dark:bg-white text-white dark:text-black text-xs font-semibold"><UserPlus className="w-3 h-3" />เพิ่ม</button>
       )}
     </div>
   );
@@ -1260,20 +1260,20 @@ function MessagesPage({ onBack, onChat, onGroupChat }) {
   }, [profile.id]);
 
   return (
-    <div className={`h-full overflow-y-auto ${dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50"} ${textPrimary}`}>
-      <div className={`sticky top-0 z-10 backdrop-blur-xl p-4 flex items-center gap-3 border-b ${dark ? "bg-slate-800/80 border-slate-700" : "bg-white/80 border-slate-200"}`}>
+    <div className={`h-full overflow-y-auto ${dark ? "bg-black" : "bg-white"} ${textPrimary}`}>
+      <div className={`sticky top-0 z-10 p-4 flex items-center gap-3 ${dark ? "bg-black border-slate-800" : "bg-white border-slate-200"} border-b`}>
         <button onClick={onBack}><ArrowLeft className="w-6 h-6" /></button>
         <h2 className="font-bold text-lg flex-1">ข้อความ</h2>
-        <button onClick={() => setShowCreator(true)} className="w-9 h-9 rounded-full bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white flex items-center justify-center shadow-md">
+        <button onClick={() => setShowCreator(true)} className="w-9 h-9 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center shadow-md">
           <Plus className="w-5 h-5" />
         </button>
       </div>
       <div className="px-3 pt-3">
         <div className="flex gap-2 mb-3">
-          <button onClick={() => setTab("direct")} className={`flex-1 py-2 rounded-xl text-sm font-semibold ${tab === "direct" ? "bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white" : dark ? "bg-slate-800 border border-slate-700" : "bg-white border border-slate-200"}`}>
+          <button onClick={() => setTab("direct")} className={`flex-1 py-2 rounded-xl text-sm font-semibold ${tab === "direct" ? "bg-black dark:bg-white text-white" : dark ? "bg-slate-800 border border-slate-700" : "bg-white border border-slate-200"}`}>
             ส่วนตัว
           </button>
-          <button onClick={() => setTab("groups")} className={`flex-1 py-2 rounded-xl text-sm font-semibold ${tab === "groups" ? "bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white" : dark ? "bg-slate-800 border border-slate-700" : "bg-white border border-slate-200"}`}>
+          <button onClick={() => setTab("groups")} className={`flex-1 py-2 rounded-xl text-sm font-semibold ${tab === "groups" ? "bg-black dark:bg-white text-white" : dark ? "bg-slate-800 border border-slate-700" : "bg-white border border-slate-200"}`}>
             กลุ่ม ({groups.length})
           </button>
         </div>
@@ -1302,14 +1302,14 @@ function MessagesPage({ onBack, onChat, onGroupChat }) {
             {groups.length === 0 && (
               <div className="text-center py-12">
                 <p className={textSecondary}>ยังไม่มีกลุ่มแชท</p>
-                <button onClick={() => setShowCreator(true)} className="mt-3 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white text-sm font-semibold">
+                <button onClick={() => setShowCreator(true)} className="mt-3 px-4 py-2 rounded-full bg-black dark:bg-white text-white text-sm font-semibold">
                   + สร้างกลุ่มแรก
                 </button>
               </div>
             )}
             {groups.map((g) => (
               <button key={g.id} onClick={() => onGroupChat(g.id)} className={`w-full flex items-center gap-3 p-2 rounded-2xl ${dark ? "hover:bg-slate-800" : "hover:bg-slate-100"}`}>
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center text-2xl shadow-md">
+                <div className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-2xl shadow-md">
                   {g.emoji || "👥"}
                 </div>
                 <div className="flex-1 text-left">
@@ -1375,11 +1375,11 @@ function GroupCreator({ onClose, onCreated }) {
   const textSecondary = dark ? "text-slate-400" : "text-slate-500";
 
   return (
-    <div className={`fixed inset-0 z-[60] flex flex-col ${dark ? "bg-slate-900 text-slate-100" : "bg-white text-slate-800"}`}>
+    <div className={`fixed inset-0 z-[60] flex flex-col ${dark ? "bg-black text-slate-100" : "bg-white text-slate-800"}`}>
       <div className={`flex items-center justify-between p-4 border-b ${dark ? "border-slate-700" : "border-slate-200"}`}>
         <button onClick={onClose}><X className="w-6 h-6" /></button>
         <h2 className="font-bold text-lg">สร้างกลุ่มแชท</h2>
-        <button onClick={create} disabled={busy || !name.trim() || selected.size === 0} className="px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white font-semibold disabled:opacity-30 text-sm">
+        <button onClick={create} disabled={busy || !name.trim() || selected.size === 0} className="px-4 py-1.5 rounded-full bg-black dark:bg-white text-white dark:text-black font-semibold disabled:opacity-30 text-sm">
           {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : "สร้าง"}
         </button>
       </div>
@@ -1387,7 +1387,7 @@ function GroupCreator({ onClose, onCreated }) {
         <p className={`text-xs font-semibold mb-2 ${textSecondary}`}>ไอคอนกลุ่ม</p>
         <div className="grid grid-cols-6 gap-2 mb-4">
           {EMOJIS.map((e) => (
-            <button key={e} onClick={() => setEmoji(e)} className={`text-2xl p-2 rounded-xl ${emoji === e ? "bg-gradient-to-br from-blue-400 to-fuchsia-400 scale-110" : dark ? "bg-slate-800" : "bg-slate-100"}`}>{e}</button>
+            <button key={e} onClick={() => setEmoji(e)} className={`text-2xl p-2 rounded-xl ${emoji === e ? "bg-black dark:bg-white scale-110" : dark ? "bg-slate-800" : "bg-slate-100"}`}>{e}</button>
           ))}
         </div>
         <input value={name} onChange={(e) => setName(e.target.value)} placeholder="ชื่อกลุ่ม" className={`w-full rounded-2xl px-4 py-3 mb-4 focus:outline-none focus:border-blue-400 border-2 ${dark ? "bg-slate-800 border-slate-700 text-slate-100" : "bg-white border-slate-200"}`} />
@@ -1401,13 +1401,13 @@ function GroupCreator({ onClose, onCreated }) {
               if (!u) return null;
               const isSelected = selected.has(id);
               return (
-                <button key={id} onClick={() => toggle(id)} className={`w-full flex items-center gap-3 p-2 rounded-2xl border-2 ${isSelected ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" : dark ? "border-slate-700 bg-slate-800" : "border-slate-200 bg-white"}`}>
+                <button key={id} onClick={() => toggle(id)} className={`w-full flex items-center gap-3 p-2 rounded-2xl border-2 ${isSelected ? "border-black dark:border-white bg-slate-50 dark:bg-slate-900" : dark ? "border-slate-700 bg-slate-800" : "border-slate-200 bg-white"}`}>
                   <Avatar user={u} size="md" />
                   <div className="flex-1 text-left">
                     <p className={`font-semibold text-sm ${textPrimary}`}>{u.displayName}</p>
                     <p className={`text-xs ${textSecondary}`}>@{u.username}</p>
                   </div>
-                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${isSelected ? "bg-blue-500 border-blue-500" : dark ? "border-slate-600" : "border-slate-300"}`}>
+                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${isSelected ? "bg-black dark:bg-white border-black dark:border-white" : dark ? "border-slate-600" : "border-slate-300"}`}>
                     {isSelected && <Check className="w-4 h-4 text-white" strokeWidth={3} />}
                   </div>
                 </button>
@@ -1432,7 +1432,7 @@ function StickerPicker({ onSelect, onClose, dark }) {
         </div>
         <div className="flex gap-1 mb-3 overflow-x-auto">
           {Object.entries(STICKER_PACKS).map(([k, v]) => (
-            <button key={k} onClick={() => setTab(k)} className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold ${tab === k ? "bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white" : dark ? "bg-slate-700 text-slate-300" : "bg-slate-100 text-slate-700"}`}>
+            <button key={k} onClick={() => setTab(k)} className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold ${tab === k ? "bg-black dark:bg-white text-white" : dark ? "bg-slate-700 text-slate-300" : "bg-slate-100 text-slate-700"}`}>
               {v.name}
             </button>
           ))}
@@ -1482,10 +1482,10 @@ function GifPicker({ onSelect, onClose, dark }) {
           <h3 className={`font-bold ${dark ? "text-slate-100" : "text-slate-800"}`}>เลือก GIF</h3>
           <button onClick={onClose}><X className={`w-5 h-5 ${dark ? "text-slate-400" : "text-slate-500"}`} /></button>
         </div>
-        <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ค้นหา GIF..." className={`w-full mb-3 px-4 py-2 rounded-full text-sm focus:outline-none border ${dark ? "bg-slate-900 border-slate-700 text-slate-100" : "bg-slate-50 border-slate-200"}`} autoFocus />
+        <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ค้นหา GIF..." className={`w-full mb-3 px-4 py-2 rounded-full text-sm focus:outline-none border ${dark ? "bg-black border-slate-700 text-slate-100" : "bg-slate-50 border-slate-200"}`} autoFocus />
         <div className="flex-1 overflow-y-auto">
           {loading ? (
-            <div className="flex justify-center py-8"><Loader2 className="w-6 h-6 animate-spin text-blue-500" /></div>
+            <div className="flex justify-center py-8"><Loader2 className="w-6 h-6 animate-spin text-black dark:text-white" /></div>
           ) : gifs.length === 0 ? (
             <p className={`text-center py-8 text-sm ${dark ? "text-slate-500" : "text-slate-400"}`}>ไม่พบ GIF</p>
           ) : (
@@ -1611,17 +1611,17 @@ function ChatPage({ uid, onBack }) {
     });
   };
 
-  if (!other) return <div className="flex h-full items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-blue-500" /></div>;
+  if (!other) return <div className="flex h-full items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-black dark:text-white" /></div>;
   const textPrimary = dark ? "text-slate-100" : "text-slate-800";
 
   return (
-    <div className={`h-full flex flex-col ${dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50"} ${textPrimary}`}>
+    <div className={`h-full flex flex-col ${dark ? "bg-black" : "bg-white"} ${textPrimary}`}>
       <div className={`backdrop-blur-xl p-3 flex items-center gap-3 border-b ${dark ? "bg-slate-800/90 border-slate-700" : "bg-white/90 border-slate-200"}`}>
         <button onClick={onBack}><ArrowLeft className="w-6 h-6" /></button>
         <Avatar user={other} size="md" />
         <div className="flex-1">
           <p className="font-semibold text-sm">{other.displayName}</p>
-          <p className="text-[11px] text-emerald-500">{otherTyping ? "กำลังพิมพ์..." : "ออนไลน์"}</p>
+          <p className="text-[11px] text-slate-400">{otherTyping ? "กำลังพิมพ์..." : "ออนไลน์"}</p>
         </div>
       </div>
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-3 space-y-2">
@@ -1645,7 +1645,7 @@ function ChatPage({ uid, onBack }) {
                     <p className={`text-[10px] mt-1 ${dark ? "text-slate-500" : "text-slate-400"}`}>{fmtTime(m.createdAt)}</p>
                   </div>
                 ) : (
-                  <div className={`max-w-[75%] px-4 py-2 rounded-2xl text-sm ${isMe ? "bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white rounded-br-md shadow-md" : dark ? "bg-slate-800 border border-slate-700 rounded-bl-md text-slate-100" : "bg-white border border-slate-200 rounded-bl-md shadow-sm"}`}>
+                  <div className={`max-w-[75%] px-4 py-2 rounded-2xl text-sm ${isMe ? "bg-black dark:bg-white text-white rounded-br-md shadow-md" : dark ? "bg-slate-800 border border-slate-700 rounded-bl-md text-slate-100" : "bg-white border border-slate-200 rounded-bl-md shadow-sm"}`}>
                     <p>{m.text}</p>
                     <p className={`text-[10px] mt-0.5 ${isMe ? "text-white/80" : dark ? "text-slate-500" : "text-slate-400"}`}>{fmtTime(m.createdAt)}</p>
                   </div>
@@ -1653,7 +1653,7 @@ function ChatPage({ uid, onBack }) {
               </div>
               {/* Read receipt below my last message */}
               {isMe && isLast && (
-                <p className={`text-[10px] mt-1 mr-2 text-right ${isRead ? "text-blue-500" : dark ? "text-slate-500" : "text-slate-400"}`}>
+                <p className={`text-[10px] mt-1 mr-2 text-right ${isRead ? "text-black dark:text-white font-semibold" : dark ? "text-slate-500" : "text-slate-400"}`}>
                   {isRead ? "✓✓ อ่านแล้ว" : "✓ ส่งแล้ว"}
                 </p>
               )}
@@ -1676,11 +1676,11 @@ function ChatPage({ uid, onBack }) {
       <div className={`border-t p-3 flex items-center gap-2 ${dark ? "border-slate-700 bg-slate-800" : "border-slate-200 bg-white"}`}>
         <button onClick={() => setShowStickerPicker(true)} className={`w-10 h-10 rounded-full flex items-center justify-center text-xl ${dark ? "bg-slate-700" : "bg-slate-100"}`}>😀</button>
         <button onClick={() => setShowGifPicker(true)} className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs ${dark ? "bg-slate-700 text-slate-300" : "bg-slate-100 text-slate-600"}`}>GIF</button>
-        <div className={`flex-1 flex items-center rounded-full px-4 py-2 ${dark ? "bg-slate-700" : "bg-slate-100"}`}>
+        <div className={`flex-1 flex items-center rounded-full px-4 py-2 ${dark ? "bg-slate-900" : "bg-slate-100"}`}>
           <input value={text} onChange={(e) => handleTextChange(e.target.value)} onKeyDown={(e) => e.key === "Enter" && submit()} placeholder="พิมพ์ข้อความ..." className={`flex-1 bg-transparent text-sm focus:outline-none ${textPrimary}`} />
         </div>
-        <button onClick={submit} disabled={!text.trim()} className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-fuchsia-500 flex items-center justify-center disabled:opacity-30">
-          <Send className="w-4 h-4 text-white" />
+        <button onClick={submit} disabled={!text.trim()} className="w-10 h-10 rounded-full bg-black dark:bg-white flex items-center justify-center disabled:opacity-30">
+          <Send className="w-4 h-4 text-white dark:text-black" />
         </button>
       </div>
       {showGifPicker && <GifPicker onSelect={sendGif} onClose={() => setShowGifPicker(false)} dark={dark} />}
@@ -1752,15 +1752,15 @@ function GroupChatPage({ groupId, onBack, onProfile }) {
     });
   };
 
-  if (!group) return <div className="flex h-full items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-blue-500" /></div>;
+  if (!group) return <div className="flex h-full items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-black dark:text-white" /></div>;
   const textPrimary = dark ? "text-slate-100" : "text-slate-800";
 
   return (
-    <div className={`h-full flex flex-col ${dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50"} ${textPrimary}`}>
+    <div className={`h-full flex flex-col ${dark ? "bg-black" : "bg-white"} ${textPrimary}`}>
       <div className={`backdrop-blur-xl p-3 flex items-center gap-3 border-b ${dark ? "bg-slate-800/90 border-slate-700" : "bg-white/90 border-slate-200"}`}>
         <button onClick={onBack}><ArrowLeft className="w-6 h-6" /></button>
         <button onClick={() => setShowInfo(true)} className="flex items-center gap-3 flex-1 text-left">
-          <div className="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center text-2xl shadow-md">
+          <div className="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-2xl shadow-md">
             {group.emoji || "👥"}
           </div>
           <div className="flex-1">
@@ -1796,7 +1796,7 @@ function GroupChatPage({ groupId, onBack, onProfile }) {
                     <p className={`text-[10px] mt-1 ${dark ? "text-slate-500" : "text-slate-400"}`}>{fmtTime(m.createdAt)}</p>
                   </div>
                 ) : (
-                  <div className={`max-w-[75%] px-4 py-2 rounded-2xl text-sm ${isMe ? "bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white rounded-br-md shadow-md" : dark ? "bg-slate-800 border border-slate-700 rounded-bl-md text-slate-100" : "bg-white border border-slate-200 rounded-bl-md shadow-sm"}`}>
+                  <div className={`max-w-[75%] px-4 py-2 rounded-2xl text-sm ${isMe ? "bg-black dark:bg-white text-white rounded-br-md shadow-md" : dark ? "bg-slate-800 border border-slate-700 rounded-bl-md text-slate-100" : "bg-white border border-slate-200 rounded-bl-md shadow-sm"}`}>
                     <p>{m.text}</p>
                     <p className={`text-[10px] mt-0.5 ${isMe ? "text-white/80" : dark ? "text-slate-500" : "text-slate-400"}`}>{fmtTime(m.createdAt)}</p>
                   </div>
@@ -1809,11 +1809,11 @@ function GroupChatPage({ groupId, onBack, onProfile }) {
       <div className={`border-t p-3 flex items-center gap-2 ${dark ? "border-slate-700 bg-slate-800" : "border-slate-200 bg-white"}`}>
         <button onClick={() => setShowStickerPicker(true)} className={`w-10 h-10 rounded-full flex items-center justify-center text-xl ${dark ? "bg-slate-700" : "bg-slate-100"}`}>😀</button>
         <button onClick={() => setShowGifPicker(true)} className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs ${dark ? "bg-slate-700 text-slate-300" : "bg-slate-100 text-slate-600"}`}>GIF</button>
-        <div className={`flex-1 flex items-center rounded-full px-4 py-2 ${dark ? "bg-slate-700" : "bg-slate-100"}`}>
+        <div className={`flex-1 flex items-center rounded-full px-4 py-2 ${dark ? "bg-slate-900" : "bg-slate-100"}`}>
           <input value={text} onChange={(e) => setText(e.target.value)} onKeyDown={(e) => e.key === "Enter" && submit()} placeholder="พิมพ์ข้อความ..." className={`flex-1 bg-transparent text-sm focus:outline-none ${textPrimary}`} />
         </div>
-        <button onClick={submit} disabled={!text.trim()} className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-fuchsia-500 flex items-center justify-center disabled:opacity-30">
-          <Send className="w-4 h-4 text-white" />
+        <button onClick={submit} disabled={!text.trim()} className="w-10 h-10 rounded-full bg-black dark:bg-white flex items-center justify-center disabled:opacity-30">
+          <Send className="w-4 h-4 text-white dark:text-black" />
         </button>
       </div>
       {showGifPicker && <GifPicker onSelect={sendGif} onClose={() => setShowGifPicker(false)} dark={dark} />}
@@ -1900,14 +1900,14 @@ function NotificationsPage({ onBack }) {
   const textSecondary = dark ? "text-slate-400" : "text-slate-500";
 
   return (
-    <div className={`h-full overflow-y-auto ${dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50"} ${textPrimary}`}>
-      <div className={`sticky top-0 z-10 backdrop-blur-xl p-4 flex items-center gap-3 border-b ${dark ? "bg-slate-800/80 border-slate-700" : "bg-white/80 border-slate-200"}`}>
+    <div className={`h-full overflow-y-auto ${dark ? "bg-black" : "bg-white"} ${textPrimary}`}>
+      <div className={`sticky top-0 z-10 p-4 flex items-center gap-3 ${dark ? "bg-black border-slate-800" : "bg-white border-slate-200"} border-b`}>
         <button onClick={onBack}><ArrowLeft className="w-6 h-6" /></button>
         <h2 className="font-bold text-lg">การแจ้งเตือน</h2>
       </div>
       <div className="p-3">
         {loading ? (
-          <div className="flex justify-center py-12"><Loader2 className="w-8 h-8 animate-spin text-blue-500" /></div>
+          <div className="flex justify-center py-12"><Loader2 className="w-8 h-8 animate-spin text-black dark:text-white" /></div>
         ) : notifs.length === 0 ? (
           <div className={`rounded-2xl p-8 text-center border shadow-sm ${dark ? "bg-slate-800 border-slate-700" : "bg-white border-slate-100"}`}>
             <Bell className={`w-12 h-12 mx-auto mb-3 ${dark ? "text-slate-600" : "text-slate-300"}`} />
@@ -1918,7 +1918,7 @@ function NotificationsPage({ onBack }) {
             {notifs.map((n) => {
               const fakeUser = { avatar: n.fromAvatar, avatarUrl: n.fromAvatarUrl };
               return (
-                <div key={n.id} className={`flex items-center gap-3 p-3 rounded-2xl border shadow-sm ${!n.read ? (dark ? "bg-blue-900/20 border-blue-800" : "bg-blue-50 border-blue-200") : (dark ? "bg-slate-800 border-slate-700" : "bg-white border-slate-100")}`}>
+                <div key={n.id} className={`flex items-center gap-3 p-3 rounded-2xl ${!n.read ? (dark ? "bg-slate-900" : "bg-slate-50") : ""}`}>
                   <div className="relative">
                     <Avatar user={fakeUser} size="md" />
                     <span className="absolute -bottom-1 -right-1 text-base bg-white dark:bg-slate-700 rounded-full w-6 h-6 flex items-center justify-center border-2 border-white dark:border-slate-700 text-xs">{icons[n.type] || "🔔"}</span>
@@ -1927,7 +1927,7 @@ function NotificationsPage({ onBack }) {
                     <p className={`text-sm ${textPrimary}`}><span className="font-semibold">{n.fromName}</span> <span className={textSecondary}>{labels[n.type] || "แจ้งเตือน"}</span></p>
                     <p className={`text-[11px] ${textSecondary}`}>{fmtTime(n.createdAt)}</p>
                   </div>
-                  {!n.read && <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />}
+                  {!n.read && <span className="w-2 h-2 rounded-full bg-black dark:bg-white shrink-0" />}
                 </div>
               );
             })}
@@ -1995,14 +1995,14 @@ function ProfilePage({ uid, onBack, onSettings, onProfile }) {
     toast("บันทึกแล้ว ✓");
   };
 
-  if (!user) return <div className="flex h-full items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-blue-500" /></div>;
+  if (!user) return <div className="flex h-full items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-black dark:text-white" /></div>;
 
   const textPrimary = dark ? "text-slate-100" : "text-slate-800";
   const textSecondary = dark ? "text-slate-400" : "text-slate-500";
 
   return (
-    <div className={`h-full overflow-y-auto ${dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50"} ${textPrimary}`}>
-      <div className={`sticky top-0 z-10 backdrop-blur-xl p-4 flex items-center justify-between border-b ${dark ? "bg-slate-800/80 border-slate-700" : "bg-white/80 border-slate-200"}`}>
+    <div className={`h-full overflow-y-auto ${dark ? "bg-black" : "bg-white"} ${textPrimary}`}>
+      <div className={`sticky top-0 z-10 p-4 flex items-center justify-between ${dark ? "bg-black border-slate-800" : "bg-white border-slate-200"} border-b`}>
         {onBack ? <button onClick={onBack}><ArrowLeft className="w-6 h-6" /></button> : <div className="w-6" />}
         <h2 className="font-bold">@{user.username}</h2>
         {isOwn ? <button onClick={onSettings}><Settings className="w-6 h-6" /></button> : <div className="w-6" />}
@@ -2011,7 +2011,7 @@ function ProfilePage({ uid, onBack, onSettings, onProfile }) {
         <div className="inline-block relative">
           <Avatar user={user} size="xl" />
           {isOwn && (
-            <button onClick={() => setEditing(true)} className="absolute bottom-0 right-0 w-9 h-9 rounded-full bg-blue-500 border-2 border-white dark:border-slate-900 text-white flex items-center justify-center shadow-lg">
+            <button onClick={() => setEditing(true)} className="absolute bottom-0 right-0 w-9 h-9 rounded-full bg-black dark:bg-white border-2 border-white dark:border-black text-white dark:text-black flex items-center justify-center shadow-lg">
               <Camera className="w-4 h-4" />
             </button>
           )}
@@ -2031,7 +2031,7 @@ function ProfilePage({ uid, onBack, onSettings, onProfile }) {
         <h3 className={`text-sm font-bold mb-2 uppercase tracking-wider ${textSecondary}`}>โพสต์</h3>
         <div className="space-y-3">
           {postsLoading ? (
-            <div className="flex justify-center py-8"><Loader2 className="w-6 h-6 animate-spin text-blue-500" /></div>
+            <div className="flex justify-center py-8"><Loader2 className="w-6 h-6 animate-spin text-black dark:text-white" /></div>
           ) : posts.length === 0 ? (
             <p className={`text-center py-8 text-sm ${textSecondary}`}>ยังไม่มีโพสต์</p>
           ) : (
@@ -2042,13 +2042,13 @@ function ProfilePage({ uid, onBack, onSettings, onProfile }) {
 
       {editing && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-end sm:items-center justify-center" onClick={() => setEditing(false)}>
-          <div onClick={(e) => e.stopPropagation()} className={`rounded-t-3xl sm:rounded-3xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto animate-slideup ${dark ? "bg-slate-800" : "bg-white"}`}>
+          <div onClick={(e) => e.stopPropagation()} className={`rounded-t-3xl sm:rounded-3xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto animate-slideup ${dark ? "bg-black border-t border-slate-800" : "bg-white"}`}>
             <h3 className={`text-xl font-bold mb-4 ${textPrimary}`}>แก้ไขโปรไฟล์</h3>
 
             <p className={`text-xs font-semibold mb-2 ${textSecondary}`}>📷 ใช้รูปจาก URL</p>
             <div className="relative mb-3">
               <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input value={edit.avatarUrl} onChange={(e) => setEdit({ ...edit, avatarUrl: e.target.value })} placeholder="วาง URL รูป (เช่น https://...)" className={`w-full rounded-xl pl-10 pr-3 py-2.5 text-sm focus:outline-none focus:border-blue-400 border ${dark ? "bg-slate-900 border-slate-700 text-slate-100" : "bg-white border-slate-200"}`} />
+              <input value={edit.avatarUrl} onChange={(e) => setEdit({ ...edit, avatarUrl: e.target.value })} placeholder="วาง URL รูป (เช่น https://...)" className={`w-full rounded-xl pl-10 pr-3 py-2.5 text-sm focus:outline-none focus:border-blue-400 border ${dark ? "bg-black border-slate-700 text-slate-100" : "bg-white border-slate-200"}`} />
             </div>
             {edit.avatarUrl && (
               <div className="flex items-center gap-2 mb-3">
@@ -2060,12 +2060,12 @@ function ProfilePage({ uid, onBack, onSettings, onProfile }) {
             <p className={`text-xs font-semibold mb-2 ${textSecondary}`}>หรือเลือก Emoji ({AVATAR_EMOJIS.length}+ แบบ)</p>
             <div className="grid grid-cols-8 gap-1.5 mb-4 max-h-48 overflow-y-auto p-1">
               {AVATAR_EMOJIS.map((a) => (
-                <button key={a} onClick={() => setEdit({ ...edit, avatar: a, avatarUrl: "" })} className={`text-2xl p-1.5 rounded-lg transition ${edit.avatar === a && !edit.avatarUrl ? "bg-gradient-to-br from-blue-400 to-fuchsia-400 scale-110" : dark ? "bg-slate-700" : "bg-slate-100"}`}>{a}</button>
+                <button key={a} onClick={() => setEdit({ ...edit, avatar: a, avatarUrl: "" })} className={`text-2xl p-1.5 rounded-lg transition ${edit.avatar === a && !edit.avatarUrl ? "bg-black dark:bg-white scale-110" : dark ? "bg-slate-700" : "bg-slate-100"}`}>{a}</button>
               ))}
             </div>
 
-            <input value={edit.displayName} onChange={(e) => setEdit({ ...edit, displayName: e.target.value })} placeholder="ชื่อแสดง" className={`w-full rounded-2xl px-4 py-3 mb-3 focus:outline-none focus:border-blue-400 border-2 ${dark ? "bg-slate-900 border-slate-700 text-slate-100" : "bg-white border-slate-200"}`} />
-            <textarea value={edit.bio} onChange={(e) => setEdit({ ...edit, bio: e.target.value })} placeholder="เกี่ยวกับคุณ..." rows={3} className={`w-full rounded-2xl px-4 py-3 mb-3 focus:outline-none focus:border-blue-400 border-2 resize-none ${dark ? "bg-slate-900 border-slate-700 text-slate-100" : "bg-white border-slate-200"}`} />
+            <input value={edit.displayName} onChange={(e) => setEdit({ ...edit, displayName: e.target.value })} placeholder="ชื่อแสดง" className={`w-full rounded-2xl px-4 py-3 mb-3 focus:outline-none focus:border-blue-400 border-2 ${dark ? "bg-black border-slate-700 text-slate-100" : "bg-white border-slate-200"}`} />
+            <textarea value={edit.bio} onChange={(e) => setEdit({ ...edit, bio: e.target.value })} placeholder="เกี่ยวกับคุณ..." rows={3} className={`w-full rounded-2xl px-4 py-3 mb-3 focus:outline-none focus:border-blue-400 border-2 resize-none ${dark ? "bg-black border-slate-700 text-slate-100" : "bg-white border-slate-200"}`} />
 
             <p className={`text-xs font-semibold mb-2 ${textSecondary}`}>🎂 วันเกิด (เพื่อนจะเห็นวันนี้วันเกิดคุณ)</p>
             <div className="flex gap-2 mb-4">
@@ -2076,7 +2076,7 @@ function ProfilePage({ uid, onBack, onSettings, onProfile }) {
                   const d = edit.birthday ? edit.birthday.split("-")[1] || "" : "";
                   setEdit({ ...edit, birthday: m && d ? `${m}-${d}` : (m ? `${m}-1` : "") });
                 }}
-                className={`flex-1 rounded-xl px-3 py-2.5 text-sm border-2 focus:outline-none focus:border-blue-400 ${dark ? "bg-slate-900 border-slate-700 text-slate-100" : "bg-white border-slate-200"}`}
+                className={`flex-1 rounded-xl px-3 py-2.5 text-sm border-2 focus:outline-none focus:border-blue-400 ${dark ? "bg-black border-slate-700 text-slate-100" : "bg-white border-slate-200"}`}
               >
                 <option value="">เลือกเดือน</option>
                 {["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"].map((m, i) => (
@@ -2090,7 +2090,7 @@ function ProfilePage({ uid, onBack, onSettings, onProfile }) {
                   const m = edit.birthday ? edit.birthday.split("-")[0] || "" : "";
                   setEdit({ ...edit, birthday: m && d ? `${m}-${d}` : "" });
                 }}
-                className={`w-24 rounded-xl px-3 py-2.5 text-sm border-2 focus:outline-none focus:border-blue-400 ${dark ? "bg-slate-900 border-slate-700 text-slate-100" : "bg-white border-slate-200"}`}
+                className={`w-24 rounded-xl px-3 py-2.5 text-sm border-2 focus:outline-none focus:border-blue-400 ${dark ? "bg-black border-slate-700 text-slate-100" : "bg-white border-slate-200"}`}
               >
                 <option value="">วัน</option>
                 {Array.from({ length: 31 }, (_, i) => i + 1).map((d) => (
@@ -2103,7 +2103,7 @@ function ProfilePage({ uid, onBack, onSettings, onProfile }) {
             </div>
             <div className="flex gap-2">
               <button onClick={() => setEditing(false)} className={`flex-1 py-3 rounded-2xl font-semibold ${dark ? "bg-slate-700 text-slate-200" : "bg-slate-100"}`}>ยกเลิก</button>
-              <button onClick={saveEdit} className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white font-semibold">บันทึก</button>
+              <button onClick={saveEdit} className="flex-1 py-3 rounded-full bg-black dark:bg-white text-white dark:text-black font-semibold">บันทึก</button>
             </div>
           </div>
         </div>
@@ -2121,8 +2121,8 @@ function SettingsPage({ onBack }) {
   const textSecondary = dark ? "text-slate-400" : "text-slate-500";
 
   return (
-    <div className={`h-full overflow-y-auto ${dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50"} ${textPrimary}`}>
-      <div className={`sticky top-0 z-10 backdrop-blur-xl p-4 flex items-center gap-3 border-b ${dark ? "bg-slate-800/80 border-slate-700" : "bg-white/80 border-slate-200"}`}>
+    <div className={`h-full overflow-y-auto ${dark ? "bg-black" : "bg-white"} ${textPrimary}`}>
+      <div className={`sticky top-0 z-10 p-4 flex items-center gap-3 ${dark ? "bg-black border-slate-800" : "bg-white border-slate-200"} border-b`}>
         <button onClick={onBack}><ArrowLeft className="w-6 h-6" /></button>
         <h2 className="font-bold text-lg">การตั้งค่า</h2>
       </div>
@@ -2145,10 +2145,10 @@ function SettingsPage({ onBack }) {
           </div>
         </button>
 
-        <button onClick={handleLogout} className="w-full bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-400 font-semibold py-3 rounded-2xl flex items-center justify-center gap-2">
+        <button onClick={handleLogout} className="w-full bg-transparent border border-red-500 text-red-500 font-semibold py-3 rounded-full hover:bg-red-50 dark:hover:bg-red-950/20 flex items-center justify-center gap-2">
           <LogOut className="w-5 h-5" /> ออกจากระบบ
         </button>
-        <p className={`text-center text-xs pt-8 ${textSecondary}`}>Playvo v1.5 · Play Every Moment</p>
+        <p className={`text-center text-xs pt-8 ${textSecondary}`}>Playvo v1.6 · Play Every Moment</p>
       </div>
     </div>
   );
@@ -2198,8 +2198,8 @@ function GamesHubPage({ onBack, onPlay }) {
   }, [profile.id]);
 
   return (
-    <div className={`h-full overflow-y-auto ${dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50"} ${textPrimary}`}>
-      <div className={`sticky top-0 z-10 backdrop-blur-xl p-4 flex items-center gap-3 border-b ${dark ? "bg-slate-800/80 border-slate-700" : "bg-white/80 border-slate-200"}`}>
+    <div className={`h-full overflow-y-auto ${dark ? "bg-black" : "bg-white"} ${textPrimary}`}>
+      <div className={`sticky top-0 z-10 p-4 flex items-center gap-3 ${dark ? "bg-black border-slate-800" : "bg-white border-slate-200"} border-b`}>
         <button onClick={onBack}><ArrowLeft className="w-6 h-6" /></button>
         <h2 className="font-bold text-lg flex items-center gap-2"><Gamepad2 className="w-5 h-5" /> เกม</h2>
       </div>
@@ -2358,8 +2358,8 @@ function OXGame({ matchId, onBack }) {
   }
 
   return (
-    <div className={`h-full overflow-y-auto ${dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50"} ${textPrimary}`}>
-      <div className={`sticky top-0 z-10 backdrop-blur-xl p-4 flex items-center gap-3 border-b ${dark ? "bg-slate-800/80 border-slate-700" : "bg-white/80 border-slate-200"}`}>
+    <div className={`h-full overflow-y-auto ${dark ? "bg-black" : "bg-white"} ${textPrimary}`}>
+      <div className={`sticky top-0 z-10 p-4 flex items-center gap-3 ${dark ? "bg-black border-slate-800" : "bg-white border-slate-200"} border-b`}>
         <button onClick={onBack}><ArrowLeft className="w-6 h-6" /></button>
         <h2 className="font-bold text-lg flex items-center gap-2">⭕❌ OX</h2>
       </div>
@@ -2396,12 +2396,12 @@ function OXGame({ matchId, onBack }) {
                 ) : (
                   <p className="text-lg font-bold text-rose-500">😢 คุณแพ้</p>
                 )}
-                <button onClick={restart} className="px-6 py-2 rounded-full bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white font-semibold inline-flex items-center gap-2">
+                <button onClick={restart} className="px-6 py-2 rounded-full bg-black dark:bg-white text-white font-semibold inline-flex items-center gap-2">
                   <RefreshCw className="w-4 h-4" /> เล่นอีกครั้ง
                 </button>
               </div>
             ) : match.turn === profile.id ? (
-              <p className="text-base font-semibold text-blue-500 animate-pulse">ตาคุณแล้ว!</p>
+              <p className="text-base font-semibold text-black dark:text-white animate-pulse">ตาคุณแล้ว!</p>
             ) : (
               <p className={`text-sm ${dark ? "text-slate-400" : "text-slate-500"}`}>กำลังรอ {opp?.displayName || "คู่ต่อสู้"}...</p>
             )}
@@ -2516,8 +2516,8 @@ function RPSGame({ matchId, onBack }) {
   const bothChose = myChoice && oppChose;
 
   return (
-    <div className={`h-full overflow-y-auto ${dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50"} ${textPrimary}`}>
-      <div className={`sticky top-0 z-10 backdrop-blur-xl p-4 flex items-center gap-3 border-b ${dark ? "bg-slate-800/80 border-slate-700" : "bg-white/80 border-slate-200"}`}>
+    <div className={`h-full overflow-y-auto ${dark ? "bg-black" : "bg-white"} ${textPrimary}`}>
+      <div className={`sticky top-0 z-10 p-4 flex items-center gap-3 ${dark ? "bg-black border-slate-800" : "bg-white border-slate-200"} border-b`}>
         <button onClick={onBack}><ArrowLeft className="w-6 h-6" /></button>
         <h2 className="font-bold text-lg flex items-center gap-2">✊✋✌️ เป่ายิ้งฉุบ</h2>
       </div>
@@ -2566,7 +2566,7 @@ function RPSGame({ matchId, onBack }) {
               ) : (
                 <p className="text-xl font-bold text-amber-500">🤝 เสมอ!</p>
               )}
-              <button onClick={nextRound} className="mt-3 px-6 py-2 rounded-full bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white font-semibold inline-flex items-center gap-2">
+              <button onClick={nextRound} className="mt-3 px-6 py-2 rounded-full bg-black dark:bg-white text-white font-semibold inline-flex items-center gap-2">
                 <RefreshCw className="w-4 h-4" /> เล่นต่อ
               </button>
             </div>
@@ -2631,8 +2631,8 @@ function TruthOrDareGame({ onBack }) {
   };
 
   return (
-    <div className={`h-full overflow-y-auto ${dark ? "bg-slate-900" : "bg-gradient-to-b from-blue-50 via-white to-orange-50"} ${textPrimary}`}>
-      <div className={`sticky top-0 z-10 backdrop-blur-xl p-4 flex items-center gap-3 border-b ${dark ? "bg-slate-800/80 border-slate-700" : "bg-white/80 border-slate-200"}`}>
+    <div className={`h-full overflow-y-auto ${dark ? "bg-black" : "bg-white"} ${textPrimary}`}>
+      <div className={`sticky top-0 z-10 p-4 flex items-center gap-3 ${dark ? "bg-black border-slate-800" : "bg-white border-slate-200"} border-b`}>
         <button onClick={onBack}><ArrowLeft className="w-6 h-6" /></button>
         <h2 className="font-bold text-lg flex items-center gap-2">🎯 Truth or Dare</h2>
       </div>
@@ -2671,7 +2671,7 @@ function TruthOrDareGame({ onBack }) {
               <button onClick={() => spin(mode)} className={`flex-1 py-3 rounded-2xl font-semibold flex items-center justify-center gap-2 ${dark ? "bg-slate-800 border border-slate-700 text-slate-100" : "bg-white border border-slate-200"}`}>
                 <RefreshCw className="w-4 h-4" /> สุ่มใหม่
               </button>
-              <button onClick={() => { setMode(null); setQuestion(""); setRandomFriend(null); }} className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white font-semibold">
+              <button onClick={() => { setMode(null); setQuestion(""); setRandomFriend(null); }} className="flex-1 py-3 rounded-full bg-black dark:bg-white text-white dark:text-black font-semibold">
                 เปลี่ยนโหมด
               </button>
             </div>
@@ -2710,7 +2710,7 @@ function FriendPickerForGame({ onPick, onCancel, busy, title }) {
       {friendIds.length === 0 ? (
         <div className={`rounded-2xl p-6 text-center ${dark ? "bg-slate-800" : "bg-white"} border ${dark ? "border-slate-700" : "border-slate-200"}`}>
           <p className={`text-sm ${textSecondary}`}>ยังไม่มีเพื่อน — เพิ่มเพื่อนก่อนเล่นเกม</p>
-          <button onClick={onCancel} className="mt-3 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white text-sm font-semibold">กลับ</button>
+          <button onClick={onCancel} className="mt-3 px-4 py-2 rounded-full bg-black dark:bg-white text-white text-sm font-semibold">กลับ</button>
         </div>
       ) : (
         <div className="space-y-2">
@@ -2735,7 +2735,7 @@ function PlayvoRoot() {
   const { user, profile, loading } = useAuth();
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-orange-50">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <img src={PLAYVO_LOGO} alt="" className="w-20 h-20 animate-pulse" />
       </div>
     );
